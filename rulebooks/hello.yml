@@ -29,3 +29,5 @@
             extra_vars:
                # vm_name: "{{ vm_name }}"  # not passed to AAP job
                vm_name: no-such-vm  # not passed to AAP job
+               # related to https://github.com/ansible/ansible-rulebook/issues/622 ?
+               # Setting the 'prompt on run' in AAP helps, even if #622 says it does not apply.
