@@ -4,13 +4,28 @@
     - ansible.eda.webhook:
         host: 0.0.0.0
         port: 5000
+    - name: http servers
+      ansible.eda.url_check:
+        delay: 10
+        urls:
+          # - http://IP:8000/eda.txt
+          - "{{ eda_txt_url }}"
+
   rules:
-    - name: Rule - Print event information
+    - name: list users - webhook
       condition: event.meta.headers is defined
       action:
         run_job_template:
           name: vm-list-users
           organization: jcorg
+
+    - name: Wait VM IP
+      condition: event.url_check.status == "down"
+      action:
+        run_job_template:
+          name: hc3-wait-vm-ip
+          organization: jcorg
           job_args:
             extra_vars:
-               vm_name: jc-ub2004-b
+               # vm_name: "{{ vm_name }}"  # not passed to AAP job
+               vm_name: no-such-vm  # not passed to AAP job

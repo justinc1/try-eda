@@ -1,0 +1,4 @@
+---
+vm_name: jc-ub2004-b
+# python -m http.server
+eda_txt_url: http://127.0.0.1:8000/eda.txt2
